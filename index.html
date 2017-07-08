@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Тест-2 Востокова</title>
+    <link href='./src/style.css' rel='stylesheet'>
+</head>
+<body>
+
+<form>
+    <div>
+        <input type='radio' id='truck' value='truck' name='type'>
+        <label for='truck'>Грузовая</label><br>
+        <input type='radio' id='car' value='car' name='type'>
+        <label for='car'>Легковая</label>
+    </div><br>
+
+    <div>
+        <label for='name'>Название*</label>
+        <input type='text' id='name'>
+    </div>
+    <div>
+        <label for='performance' id='perf-label'>Масса/скорость*</label>
+        <input type='text' id='performance'>
+    </div>
+    <div>
+        <label for='description'>Примечание</label>
+        <input type='text' id='description'>
+    </div><br>
+    <input type='button' id='button' value='Добавить'>
+</form><br>
+
+<select id='vehicle-list' multiple></select><br>
+
+<p id='show-info'></p>
+
+<script src="./dist/bundle.js"></script>
+</body>
+</html>
