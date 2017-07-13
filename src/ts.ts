@@ -2,7 +2,7 @@
 let byID = (id:string):HTMLElement => document.getElementById();
 let button:HTMLElement = byID('button');
 let list:HTMLElement = byID('list');
-let options:HTMLElement[]= list.childNodes;
+let options:NodeList = list.childNodes;
 
 abstract class Vehicle {
     name:string;
