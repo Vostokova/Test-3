@@ -54,7 +54,7 @@ class Car extends Vehicle {
     }
 }
 
-button.onclick = () => {
+button.onclick = ():void => {
     let vehicle:Vehicle;
     let nameField:HTMLElement = byID('name');
     let performance:HTMLElement = byID('performance');
@@ -62,20 +62,20 @@ button.onclick = () => {
     let radios:NodeListOf<HTMLElement> = document.getElementsByName('type');
     let type:string;
 
-    function checkType():void {
+    let checkType = ():void => {
         for (let i=0; i<radios.length; i++)
             if (radios[i].checked) type = radios[i].value;
-    }
+    };
 
-    function validateFields():string {
+    let validateFields = ():string => {
         let errorMessage = '';
         if (!type) errorMessage += 'Выберите тип! ';
         if (!nameField.value) errorMessage += 'Введите название! ';
         if (!performance.value) errorMessage += 'Введите характеристику автомобиля!';
         return errorMessage;
-    }
+    };
 
-    function clearForm():void {
+    let clearForm = ():void => {
         type = null;
         nameField.value = null;
         performance.value = null;
@@ -84,7 +84,7 @@ button.onclick = () => {
             if (radios[i].checked) radios[i].checked = false;
         }
         byID('perf-label').innerHTML = 'Macca/скорость*';
-    }
+    };
 
     checkType();
     let errorMessage:string = validateFields();
@@ -109,15 +109,15 @@ button.onclick = () => {
 };
 
 
-list.onclick = function():void {
+list.onclick = ():void => {
     if (list.selectedIndex != -1) {
         document.getElementById('show-info').innerHTML = vehicles[list.selectedIndex].onClick();
     }
 };
 
-byID('truck').onclick = function ():void {
+byID('truck').onclick = ():void => {
     byID('perf-label').innerHTML = 'Масса*';
 };
-byID('car').onclick = function ():void {
+byID('car').onclick = ():void => {
     byID('perf-label').innerHTML = 'Скорость*';
 };
