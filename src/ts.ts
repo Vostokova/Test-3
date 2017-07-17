@@ -4,6 +4,11 @@ let button:HTMLElement = byID('button');
 let list:HTMLElement = byID('vehicle-list');
 let options:NodeListOf<HTMLElement> = list.options;
 
+/**
+ * Общий для всех добавляемых автомобилей.
+ * Реализует методы для отображения в списке
+ * и для отображения подробной инфы о выбранном авто.
+ */
 class Vehicle {
     name:string;
     type:string;
@@ -26,6 +31,11 @@ class Vehicle {
     abstract customInfo():string;
 }
 
+/**
+ * Класс для грузовых авто.
+ * Специфическое свойство - грузоподъемность.
+ * Методы для отображения специфической инфы в списке и развернутом описании.
+ */
 class Truck extends Vehicle {
     carrying:number;
     constructor (name:string, type:string, carrying:number, description?:string) {
@@ -40,6 +50,11 @@ class Truck extends Vehicle {
     }
 }
 
+/**
+ * Класс для легковых авто.
+ * Специфическое свойство - скорость.
+ * Методы для отображения специфической инфы в списке и развернутом описании.
+ */
 class Car extends Vehicle {
     velocity:number;
     constructor (name:string, type:string, velocity:number, description?:string) {
@@ -54,6 +69,12 @@ class Car extends Vehicle {
     }
 }
 
+/**
+ * Действия при нажатии кнопки - проверка полей,
+ * создание экземпляра Truck или Car,
+ * обновление массива и списка автомобилей,
+ * очистка формы.
+ */
 button.onclick = ():void => {
     let vehicle:Vehicle;
     let nameField:HTMLElement = byID('name');
@@ -62,11 +83,20 @@ button.onclick = ():void => {
     let radios:NodeListOf<HTMLElement> = document.getElementsByName('type');
     let type:string;
 
+    /**
+     * Получает значение выбранной радио-кнопки
+     */
     let checkType = ():void => {
         for (let i=0; i<radios.length; i++)
             if (radios[i].checked) type = radios[i].value;
     };
 
+    /**
+     * Проверяет, все ли обязательные поля заполнены.
+     * Если нет, возвращает errorMessage, в котором
+     * перечислены просьбы заполнить все недостающие поля.
+     * @returns {string}
+     */
     let validateFields = ():string => {
         let errorMessage = '';
         if (!type) errorMessage += 'Выберите тип! ';
@@ -75,6 +105,9 @@ button.onclick = ():void => {
         return errorMessage;
     };
 
+    /**
+     * Возвращает все поля формы к первоначальному состоянию.
+     */
     let clearForm = ():void => {
         type = null;
         nameField.value = null;
@@ -83,7 +116,7 @@ button.onclick = ():void => {
         for (let i = 0; i < radios.length; i++) {
             if (radios[i].checked) radios[i].checked = false;
         }
-        byID('perf-label').innerHTML = 'Macca/скорость*';
+        byID('perf-label').innerHTML = 'Macca/скорость*'; //пока не выбран тип, лейбл тоже не определён
     };
 
     checkType();
@@ -109,15 +142,25 @@ button.onclick = ():void => {
 };
 
 
+/**
+ * По клику на определённый элемент списка выдаёт
+ * развернутую информацию, связанную с этим элементом.
+ */
 list.onclick = ():void => {
     if (list.selectedIndex != -1) {
         document.getElementById('show-info').innerHTML = vehicles[list.selectedIndex].onClick();
     }
 };
 
+/**
+ * При выборе типа "грузовой", сразу меняет лейбл производительности на "Масса"
+ */
 byID('truck').onclick = ():void => {
     byID('perf-label').innerHTML = 'Масса*';
 };
+/**
+ * При выборе типа "легковой", сразу меняет лейбл производительности на "Скорость"
+ */
 byID('car').onclick = ():void => {
     byID('perf-label').innerHTML = 'Скорость*';
 };
