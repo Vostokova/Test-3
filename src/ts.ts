@@ -13,21 +13,26 @@ class Vehicle {
     name:string;
     type:string;
     description?:string;
+
     constructor (name:string, type:string, description?:string) {
         this.name = name;
         this.type = type;
         this.description = description;
     }
+
     showLabel():string {
         return `${this.name} ${this.customLabel()}`;
     }
+
     showInfo():string {
         return `Тип: ${this.type}<br>
             Модель: ${this.name}<br>
             ${this.customInfo()}<br>
             Примечание: ${this.description}`;
     }
+
     abstract customLabel():string;
+
     abstract customInfo():string;
 }
 
@@ -82,6 +87,7 @@ button.onclick = ():void => {
     let description:HTMLElement = byID('description');
     let radios:NodeListOf<HTMLElement> = document.getElementsByName('type');
     let type:string;
+    let errorMessage:string;
 
     /**
      * Получает значение выбранной радио-кнопки
@@ -95,14 +101,12 @@ button.onclick = ():void => {
      * Проверяет, все ли обязательные поля заполнены.
      * Если нет, возвращает errorMessage, в котором
      * перечислены просьбы заполнить все недостающие поля.
-     * @returns {string}
      */
-    let validateFields = ():string => {
-        let errorMessage = '';
+    let validateFields = ():void => {
+        errorMessage = '';
         if (!type) errorMessage += 'Выберите тип! ';
         if (!nameField.value) errorMessage += 'Введите название! ';
         if (!performance.value) errorMessage += 'Введите характеристику автомобиля!';
-        return errorMessage;
     };
 
     /**
@@ -119,25 +123,33 @@ button.onclick = ():void => {
         byID('perf-label').innerHTML = 'Macca/скорость*'; //пока не выбран тип, лейбл тоже не определён
     };
 
+    /**
+     * Создаёт экземпляр Truck или Car, добавляет их к массиву
+     * vehicles и select-списку 'vehicle-list'.
+     */
+    let addVehicle = ():void => {
+        switch (type) {
+            case 'truck':
+                vehicle = new Truck(nameField.value, 'грузовая', performance.value, description.value);
+                break;
+            case 'car':
+                vehicle = new Car(nameField.value, 'легковая', performance.value, description.value);
+                break;
+        }
+        vehicles.push({
+            vehicle: vehicle,
+            onClick: vehicle.showInfo.bind(vehicle)
+        });
+        options[options.length] = new Option (vehicle.showLabel());
+    };
+
     checkType();
-    let errorMessage:string = validateFields();
+    validateFields();
     if (errorMessage) {
         alert(errorMessage);
         return;
     }
-    switch (type) {
-        case 'truck':
-            vehicle = new Truck(nameField.value, 'грузовая', performance.value, description.value);
-            break;
-        case 'car':
-            vehicle = new Car(nameField.value, 'легковая', performance.value, description.value);
-            break;
-    }
-    vehicles.push({
-        vehicle: vehicle,
-        onClick: vehicle.showInfo.bind(vehicle)
-    });
-    options[options.length] = new Option (vehicle.showLabel());
+    addVehicle();
     clearForm();
 };
 
@@ -158,6 +170,7 @@ list.onclick = ():void => {
 byID('truck').onclick = ():void => {
     byID('perf-label').innerHTML = 'Масса*';
 };
+
 /**
  * При выборе типа "легковой", сразу меняет лейбл производительности на "Скорость"
  */
