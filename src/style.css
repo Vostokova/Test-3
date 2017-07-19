@@ -1,11 +1,18 @@
-label {
-  display: inline-block;
-  width: 150px;
+.textfield {
+    display: inline-block;
+    width: 150px;
+    padding-left: 3px;
+}
+.radio {
+    display: block;
+}
+.margin {
+    margin: 15px auto;
 }
 #button {
-  background-color: steelblue;
-  padding: 5px 10px;
+    background-color: steelblue;
+    padding: 5px 10px;
 }
-#vehicle-list {
-  width: 300px;
+#list {
+    width: 300px;
 }

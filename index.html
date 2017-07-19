@@ -8,31 +8,30 @@
 <body>
 
 <form>
-    <div>
-        <input type='radio' id='truck' value='truck' name='type'>
-        <label for='truck'>Грузовая</label><br>
-        <input type='radio' id='car' value='car' name='type'>
-        <label for='car'>Легковая</label>
-    </div><br>
+    <div class='margin'>
+        <label class='radio'><input type='radio' id='truck' value='truck' name='type'> Грузовая</label>
+        <label class='radio'><input type='radio' id='car' value='car' name='type'> Легковая</label>
+    </div>
 
     <div>
-        <label for='name'>Название*</label>
+        <label class='textfield' for='name'>Название*</label>
         <input type='text' id='name'>
     </div>
     <div>
-        <label for='performance' id='perf-label'>Масса/скорость*</label>
+        <label class='textfield' for='performance' id='perf-label'>Масса/скорость*</label>
         <input type='text' id='performance'>
     </div>
     <div>
-        <label for='description'>Примечание</label>
+        <label class='textfield' for='description'>Примечание</label>
         <input type='text' id='description'>
-    </div><br>
-    <input type='button' id='button' value='Добавить'>
-</form><br>
+    </div>
 
-<select id='vehicle-list' multiple></select><br>
+    <input type='button' class='margin' id='button' value='Добавить'>
+</form>
 
-<p id='show-info'></p>
+<select id='list' title='vehicle-list' multiple></select>
+
+<p class='margin' id='show-info'></p>
 
 <script src="./dist/bundle.js"></script>
 </body>

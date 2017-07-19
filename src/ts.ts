@@ -1,7 +1,7 @@
 ﻿let vehicles[];
 let byID = (id:string):HTMLElement => document.getElementById(id);
 let button:HTMLElement = byID('button');
-let list:HTMLElement = byID('vehicle-list');
+let list:HTMLElement = byID('list');
 let options:NodeListOf<HTMLElement> = list.options;
 
 /**
